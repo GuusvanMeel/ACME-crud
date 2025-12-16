@@ -8,7 +8,7 @@ import DeleteButton from "../components/DeleteButton";
 import Editbutton from "../components/EditButton";
 
 export default async function ProductsPage() {
-const response = await axios.get("http://localhost:3000/api/products")
+const response = await axios.get(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products`)
 const products = response.data as productType[];
 
   if (!products || products.length === 0) 

@@ -5,7 +5,7 @@ import { productType } from "@/types/product";
 
 export default async function EditPage({ params }: { params: { productId: string } }) {
   
-  const response = await axios.get(`http://localhost:3000/api/products/${params.productId}`);
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products/${params.productId}`);
   const product = response.data as productType;
   
   return(
