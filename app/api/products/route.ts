@@ -5,16 +5,13 @@ import { productType } from "../../../types/product";
 export async function GET() {
   const { data, error } = await supabase
     .from("producten")
-    .select("*");
-    
+    .select("*");    
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-  
+  }  
   if (!data) {
     return NextResponse.json({ error: "Products not found" }, { status: 404 });
-  }
-  
+  }  
   return NextResponse.json(data);
 } 
 
