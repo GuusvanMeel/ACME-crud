@@ -3,16 +3,16 @@ import Link from "next/link";
 import { poppins } from "../fonts";
 import { productType } from "../../types/product";
 import { truncate, formatPrice } from "../../_lib/scripts";
-import { supabase } from "@/app/lib/supabaseClient";
+import axios from "axios";
 import DeleteButton from "../components/DeleteButton";
 import Editbutton from "../components/EditButton";
 
 export default async function ProductsPage() {
-  const { data: products, error } = await supabase
-    .from("producten")
-    .select("*");
+const response = await axios.get("http://localhost:3000/api/products")
+const products = response.data as productType[];
 
-  if (error || !products || products.length === 0) {
+  if (!products || products.length === 0) 
+    {
     return <p>No products found.</p>;
   }
 

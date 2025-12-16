@@ -4,7 +4,6 @@ import { formatPrice } from "../../../_lib/scripts";
 import NoProduct from "@/app/components/NoProduct";
 import { PiLessThan } from "react-icons/pi";
 import { supabase } from "@/app/lib/supabaseClient";
-
 export default async function ProductDetailPage({
   params,
 }: {
@@ -17,9 +16,7 @@ export default async function ProductDetailPage({
   if (!Number.isFinite(id) || id <= 0) {
     return <NoProduct issue="The provided url has an invalid format." />;
   }
-
-  // Call Supabase directly instead of using axios
-  const { data: product, error } = await supabase
+    const { data: product, error } = await supabase
     .from("producten")
     .select("*")
     .eq("id", id)
@@ -90,12 +87,13 @@ export default async function ProductDetailPage({
             </div>
 
             <div className="flex min-w-0 h-full flex-col">
-              {/* Title row with DeleteButton */}
-              <div className="flex items-start justify-between">
-                <h2 className="text-2xl font-bold leading-tight text-gray-900 dark:text-gray-100">
-                  {product.title}
-                </h2>
-              </div>
+          {/* Title row with DeleteButton */}
+          <div className="flex items-start justify-between">
+            <h2 className="text-2xl font-bold leading-tight text-gray-900 dark:text-gray-100">
+              {product.title}
+            </h2>
+
+          </div>
 
               <p className="mt-4 text-base leading-relaxed text-gray-700 dark:text-gray-300">
                 {product.description}
@@ -145,4 +143,4 @@ export default async function ProductDetailPage({
       </main>
     </section>
   );
-}
+  }
