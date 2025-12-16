@@ -1,11 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { productType } from "../../../types/product";
 import { formatPrice } from "../../../_lib/scripts";
 import NoProduct from "@/app/components/NoProduct";
 import { PiLessThan } from "react-icons/pi";
-import axios from "axios";
-
+import { supabase } from "@/app/lib/supabaseClient";
 export default async function ProductDetailPage({
   params,
 }: {
@@ -18,11 +16,15 @@ export default async function ProductDetailPage({
   if (!Number.isFinite(id) || id <= 0) {
     return <NoProduct issue="The provided url has an invalid format." />;
   }
-    const response = await axios.get(
-      `/api/products/${id}`
-    );
+    const { data: product, error } = await supabase
+    .from("producten")
+    .select("*")
+    .eq("id", id)
+    .single();
 
-    const product = response.data as productType;
+  if (error || !product) {
+    return <NoProduct issue="Product not found." />;
+  }
 
   return (
     <section className="relative overflow-hidden flex-1">
