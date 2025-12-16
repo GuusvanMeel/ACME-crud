@@ -19,7 +19,7 @@ export default async function ProductDetailPage({
     return <NoProduct issue="The provided url has an invalid format." />;
   }
     const response = await axios.get(
-      `http://localhost:3000/api/products/${id}`
+      `/api/products/${id}`
     );
 
     const product = response.data as productType;

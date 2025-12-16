@@ -10,7 +10,7 @@ async function addProduct() {
       image: "https://example.com/torchlampje.jpg",
     };
 
-    const response = await axios.post("http://localhost:3000/api/products", newProduct);
+    const response = await axios.post("/api/products", newProduct);
     console.log("Product added:", response.data);
   } catch (err) {
     console.error("Error adding product:", err);
