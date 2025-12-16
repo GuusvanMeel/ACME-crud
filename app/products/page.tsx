@@ -7,6 +7,8 @@ import axios from "axios";
 import DeleteButton from "../components/DeleteButton";
 import Editbutton from "../components/EditButton";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProductsPage() {
 const response = await axios.get(`${process.env.NEXT_PUBLIC_SITE_URL}/api/products`)
 const products = response.data as productType[];
