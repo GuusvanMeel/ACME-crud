@@ -1,8 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ProductForm from "@/app/components/productform";
-import { useRouter } from "next/navigation";
-import { supabaseBrowser } from "@/app/lib/supabaseBrowser";
 
 export default function CreateProduct() {   
     

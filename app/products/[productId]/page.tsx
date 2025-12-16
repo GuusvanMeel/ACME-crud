@@ -9,26 +9,20 @@ import axios from "axios";
 export default async function ProductDetailPage({
   params,
 }: {
-  // In the App Router, params is a plain object; no Promise wrapper needed.
-  params: { productId: string };
+  params: Promise<{ productId: string }>;
 }) {
   const { productId } = await params;
   const id = Number(productId);
 
-  // Minimal validation: handle missing/invalid ids with a simple message
+  // Validate id
   if (!Number.isFinite(id) || id <= 0) {
     return <NoProduct issue="The provided url has an invalid format." />;
   }
+    const response = await axios.get(
+      `http://localhost:3000/api/products/${id}`
+    );
 
-
-  let product: productType | null = null;
-  try {
-    const response = await axios.get(`http://localhost:3000/api/products/${id}`);
-    product = response.data as productType;
-  } catch (error) {
-    console.error(error);
-    return <NoProduct issue="Our catalog does not contain this product." />;
-  }
+    const product = response.data as productType;
 
   return (
     <section className="relative overflow-hidden flex-1">
@@ -80,7 +74,7 @@ export default async function ProductDetailPage({
             <div className="relative">
               <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-gradient-to-b from-white to-gray-50 p-6 dark:from-gray-900 dark:to-gray-950">
                 <Image
-                  src={product.image_url}
+                  src={product.image}
                   alt={product.title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -147,4 +141,4 @@ export default async function ProductDetailPage({
       </main>
     </section>
   );
-}
+  }

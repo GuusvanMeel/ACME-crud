@@ -7,17 +7,11 @@ import { poppins } from "../fonts";
 import { productType } from "../../types/product";
 import { truncate, formatPrice } from "../../_lib/scripts";
 import axios from "axios";
-import { cookies } from "next/headers";
 import DeleteButton from "../components/DeleteButton";
 import Editbutton from "../components/EditButton";
 
 
 export default async function ProductsPage() {
-  const cookieStore = await cookies(); // 👈 async call in Next 15
-
- 
-
-
 const response = await axios.get("http://localhost:3000/api/products")
 const products = response.data as productType[];
 
@@ -72,7 +66,7 @@ const products = response.data as productType[];
     {/* Image */}
     <div className="h-40 grid place-items-center">
       <Image
-        src={product.image_url || "/shop.jpg"}
+        src={product.image || "/shop.jpg"}
         alt={product.title}
         width={80}
         height={80}

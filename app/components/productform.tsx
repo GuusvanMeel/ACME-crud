@@ -1,8 +1,9 @@
 "use client";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { productType } from "@/types/product";
+import Image from "next/image";
 
 type ProductFormProps = {
   productId?: string;
@@ -20,7 +21,7 @@ export default function ProductForm({ productId, initialData, mode }: ProductFor
     price: initialData?.price || 0,
     description: initialData?.description || "",
     category: initialData?.category || "",
-    image_url: initialData?.image_url || "",
+    image: initialData?.image || "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -88,14 +89,14 @@ export default function ProductForm({ productId, initialData, mode }: ProductFor
       <input
         type="text"
         name="image_url"
-        value={formData.image_url}
+        value={formData.image}
         onChange={handleChange}
         placeholder="Image URL"
         className="rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-3"
       />
-     {formData.image_url && (
-  <img
-    src={formData.image_url}
+     {formData.image && (
+  <Image
+    src={formData.image}
     alt="image preview"
     width={80}
     height={80}
